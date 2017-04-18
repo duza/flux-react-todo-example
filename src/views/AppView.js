@@ -33,7 +33,7 @@ function Main(props) {
             <input checked={props.allComplete}
                      id="toggle-all"
                      type="checkbox"
-                   onChange={(event) => props.toggleAllTodos(event.target.checked)}
+                   onChange={props.toggleAllTodos}
 
             />
                 <label htmlFor="toggle-all">Mark all as complete</label>

@@ -39,10 +39,9 @@ const Actions = {
         });
     },
 
-    toggleAllTodos(checked) {
+    toggleAllTodos() {
         TodoDispatcher.dispatch({
             type: TodoActionTypes.TOGGLE_ALL_TODOS,
-            checked,
         });
     },
 

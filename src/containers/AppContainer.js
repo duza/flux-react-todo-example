@@ -18,6 +18,7 @@ function getState() {
     return {
         todos: TodoStore.getState(),
         draft: TodoDraftStore.getState(),
+        allComplete: TodoStore.getState().every(todo => todo.complete),
 
         onDeleteTodo: TodoActions.deleteTodo,
         onToggleTodo: TodoActions.toggleTodo,
