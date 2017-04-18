@@ -25,9 +25,35 @@ function Header(props) {
 }
 
 function Main(props) {
+
+    function onShowAllTodos(todo) {
+        return true;
+    }
+
+    function onShowActiveTodos(todo) {
+        if (!todo.complete) {
+            return true;
+        }
+        return false;
+    }
+
+    function onShowCompletedTodos(todo) {
+        if (todo.complete) {
+            return true;
+        }
+        return false;
+    }
+
+    const filterGroup = {'all': onShowAllTodos,
+        'active': onShowActiveTodos,
+        'completed': onShowCompletedTodos}
+
+    const filterFn = filterGroup[props.filterGroup];
+
     if (props.todos.size === 0) {
         return null;
     }
+    console.log(...props.todos.values());
     return (
         <section id="main">
             <input checked={props.allComplete}
@@ -39,8 +65,8 @@ function Main(props) {
                 <label htmlFor="toggle-all">Mark all as complete</label>
 
             <ul id="todo-list">
-                {[...props.todos.values()].reverse().map(todo => (
-                    <li key={todo.id}>
+                {[...props.todos.values()].reverse().filter(filterFn).map(todo => (
+                    <li key={todo.id} className={todo.complete ? 'completed' : ''}>
                         <div className="view">
                             <input
                                 className="toggle"
@@ -67,7 +93,6 @@ function Footer(props) {
     if (props.todos.size === 0) {
         return null;
     }
-
     const remaining = props.todos.filter(todo => !todo.complete).size;
     const complited = props.todos.size - remaining;
     const phrase = remaining === 1 ? ' item left' : ' items left';
@@ -79,9 +104,18 @@ function Footer(props) {
             </strong>
               {phrase}
         </span>
+        <button id="all" onClick={props.onShowAllTodos}>
+            All
+        </button>
+        <button id="active" onClick={props.onShowActiveTodos}>
+            Active
+        </button>
+        <button id="completed" onClick={props.onShowCompletedTodos}>
+            Complited
+        </button>
         <button id="clear-completed"
                 onClick={props.onDeleteCompletedTodos}>
-            Delete {complited} complited todos
+            Clear {complited > 0 ? complited : '' } completed todos
         </button>
       </footer>
     );

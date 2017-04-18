@@ -45,6 +45,42 @@ const Actions = {
         });
     },
 
+    onShowAllTodos() {
+        TodoDispatcher.dispatch({
+            type: TodoActionTypes.SHOW_ALL_TODOS,
+        });
+    },
+
+    onShowActiveTodos() {
+        TodoDispatcher.dispatch({
+            type: TodoActionTypes.SHOW_ACTIVE_TODOS,
+        });
+    },
+
+    onShowCompletedTodos() {
+        TodoDispatcher.dispatch({
+            type: TodoActionTypes.SHOW_COMPLETED_TODOS,
+        });
+    },
+
+
+    startEditingTodo() {
+        TodoDispatcher.dispatch({
+            type: TodoActionTypes.START_EDITING_TODO,
+        });
+    },
+
+    stopEditingTodo() {
+        TodoDispatcher.dispatch({
+            type: TodoActionTypes.STOP_EDITING_TODO,
+        });
+    },
+
+    editTodo() {
+        TodoDispatcher.dispatch({
+            type: TodoActionTypes.EDIT_TODO,
+        });
+    },
 };
 
 export default Actions;

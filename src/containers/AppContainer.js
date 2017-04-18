@@ -6,11 +6,13 @@ import {Container} from 'flux/utils';
 import TodoStore from '../data/TodoStore';
 import TodoActions from '../data/TodoActions';
 import TodoDraftStore from '../data/TodoDraftStore';
+import TodoFilterStore from '../data/TodoFilterStore';
 
 function getStores() {
     return [
         TodoStore,
         TodoDraftStore,
+        TodoFilterStore,
     ];
 }
 
@@ -19,6 +21,7 @@ function getState() {
         todos: TodoStore.getState(),
         draft: TodoDraftStore.getState(),
         allComplete: TodoStore.getState().every(todo => todo.complete),
+        filterGroup: TodoFilterStore.getState(),
 
         onDeleteTodo: TodoActions.deleteTodo,
         onToggleTodo: TodoActions.toggleTodo,
@@ -26,6 +29,14 @@ function getState() {
         onDraftTodo: TodoActions.updateDraft,
         onDeleteCompletedTodos: TodoActions.clearComplited,
         toggleAllTodos: TodoActions.toggleAllTodos,
+
+        onShowAllTodos: TodoActions.onShowAllTodos,
+        onShowActiveTodos: TodoActions.onShowActiveTodos,
+        onShowCompletedTodos: TodoActions.onShowCompletedTodos,
+
+        startEditingTodo: TodoActions.startEditingTodo,
+        stopEditingTodo: TodoActions.stopEditingTodo,
+        editTodo: TodoActions.editTodo,
 
     };
 }

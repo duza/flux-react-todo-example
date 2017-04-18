@@ -21,15 +21,19 @@ class TodoStore extends ReduceStore {
         switch (action.type) {
             case TodoActionTypes.ADD_TODO:
                 // Do nothing for now, we will add logic here soon!
-                if (!action.text) {
+                const inputText = action.text.trim();
+                const isInputTextUnique = ![...state.values()].map(todo => todo.text).includes(inputText);
+                if (!inputText) {
                     return state;
                 }
-                const id = Counter.increment();
-                return state.set(id, new Todo({
-                    id,
-                    text: action.text,
-                    complete: false,
-                }));
+                if ((inputText) && (isInputTextUnique)) {
+                    const id = Counter.increment();
+                    return state.set(id, new Todo({
+                        id,
+                        text: inputText,
+                        complete: false,
+                    }));
+                }
 
             case TodoActionTypes.DELETE_TODO:
                 return state.delete(action.id);
@@ -45,10 +49,9 @@ class TodoStore extends ReduceStore {
 
             case TodoActionTypes.TOGGLE_ALL_TODOS:
                 const allComplete = state.every(todo => todo.complete);
-                console.log(allComplete);
                 return state.map(
                     todo => todo.set('complete', !allComplete)
-                )
+                );
 
             default:
                 return state;
