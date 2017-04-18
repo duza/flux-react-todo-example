@@ -4,6 +4,7 @@
 import {ReduceStore} from 'flux/utils';
 import TodoActionTypes from './TodoActionTypes';
 import TodoDispatcher from './TodoDispatcher';
+import createStore from './CreateStores';
 
 class TodoDraftStore extends ReduceStore {
 
@@ -12,10 +13,13 @@ class TodoDraftStore extends ReduceStore {
     }
 
     getInitialState() {
-        return '';
+        return createStore('TodoDraftStore','');
     }
 
     reduce(state, action) {
+
+        localStorage.setItem("TodoDraftStore", JSON.stringify(state));
+
         switch (action.type) {
             case TodoActionTypes.UPDATE_DRAFT:
                 // Do nothing for now, we will add logic here soon!
@@ -25,6 +29,7 @@ class TodoDraftStore extends ReduceStore {
                 return '';
 
             default:
+                localStorage.setItem("TodoDraftStore", JSON.stringify(state));
                 return state;
         }
     }

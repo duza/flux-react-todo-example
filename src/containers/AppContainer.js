@@ -8,12 +8,13 @@ import TodoActions from '../data/TodoActions';
 import TodoDraftStore from '../data/TodoDraftStore';
 import TodoFilterStore from '../data/TodoFilterStore';
 
+
 function getStores() {
     return [
         TodoStore,
         TodoDraftStore,
         TodoFilterStore,
-    ];
+        ];
 }
 
 function getState() {

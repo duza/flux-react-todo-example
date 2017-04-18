@@ -7,6 +7,9 @@ import TodoActionTypes from './TodoActionTypes';
 import TodoDispatcher from './TodoDispatcher';
 import Counter from './Counter';
 import Todo from './Todo';
+import createStore from './CreateStores';
+import {createTodoStore} from './CreateStores';
+
 
 class TodoStore extends ReduceStore {
     constructor() {
@@ -14,10 +17,13 @@ class TodoStore extends ReduceStore {
     }
 
     getInitialState() {
-        return Immutable.OrderedMap();
+        return createTodoStore('TodoStore', Immutable.OrderedMap());
     }
 
     reduce(state, action) {
+
+        localStorage.setItem("TodoStore", JSON.stringify(state));
+
         switch (action.type) {
             case TodoActionTypes.ADD_TODO:
                 // Do nothing for now, we will add logic here soon!
@@ -27,7 +33,7 @@ class TodoStore extends ReduceStore {
                     return state;
                 }
                 if ((inputText) && (isInputTextUnique)) {
-                    const id = Counter.increment();
+                    const id = Counter.increment(state.size);
                     return state.set(id, new Todo({
                         id,
                         text: inputText,
@@ -48,6 +54,7 @@ class TodoStore extends ReduceStore {
                 return state.filter(todo => !todo.complete);
 
             case TodoActionTypes.TOGGLE_ALL_TODOS:
+                console.log(state);
                 const allComplete = state.every(todo => todo.complete);
                 return state.map(
                     todo => todo.set('complete', !allComplete)

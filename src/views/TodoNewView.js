@@ -13,7 +13,7 @@ function TodoNew(props) {
     };
         return (
             <div className="View">
-                <input className="input"
+                <input className="input" placeholder="Add todo"
                        id="new-todo"
                        value={props.draft}
                        onChange={onChange}
