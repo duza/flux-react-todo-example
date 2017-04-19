@@ -6,6 +6,8 @@ import React from 'react';
 import TodoNew from "./TodoNewView"
 
 function AppView(props) {
+    localStorage.setItem("TodoStore", JSON.stringify(props.todos));
+    localStorage.setItem("TodoDraftStore", JSON.stringify(props.draft));
     return (
         <div>
             <Header {...props} />
@@ -104,13 +106,13 @@ function Footer(props) {
             </strong>
               {phrase}
         </span>
-        <button id="all" onClick={props.onShowAllTodos}>
+        <button id="all" className="filter-button" onClick={props.onShowAllTodos}>
             All
         </button>
-        <button id="active" onClick={props.onShowActiveTodos}>
+        <button id="active" className="filter-button" onClick={props.onShowActiveTodos}>
             Active
         </button>
-        <button id="completed" onClick={props.onShowCompletedTodos}>
+        <button id="completed" className="filter-button" onClick={props.onShowCompletedTodos}>
             Complited
         </button>
         <button id="clear-completed"

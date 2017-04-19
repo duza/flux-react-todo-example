@@ -15,8 +15,8 @@ let _counter = 1;
  * This is a simple counter for providing unique ids.
  */
 const Counter = {
-    increment(todoSize) {
-        return 'id-' + String(todoSize + _counter++);
+    increment() {
+        return 'id-' + String(_counter++);
     },
 };
 

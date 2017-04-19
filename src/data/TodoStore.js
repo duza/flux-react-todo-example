@@ -33,7 +33,11 @@ class TodoStore extends ReduceStore {
                     return state;
                 }
                 if ((inputText) && (isInputTextUnique)) {
-                    const id = Counter.increment(state.size);
+                    var id = Counter.increment();
+                    while (state.has(id)) {
+                        id = Counter.increment();
+                    }
+                    console.log(id);
                     return state.set(id, new Todo({
                         id,
                         text: inputText,
